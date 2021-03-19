@@ -1,1 +1,7 @@
-
+spring:
+  data:
+    cassandra:
+      port: 9042
+      contact-points: cassandra
+      keyspace-name: visitorkeyspace
+      entity-base-package: com.lama.visitormanagementsystem.model
