@@ -35,7 +35,6 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
         return keySpace;
     }
 
-
     @Override
     protected List<CreateKeyspaceSpecification> getKeyspaceCreations() {
         return Collections.singletonList(CreateKeyspaceSpecification
