@@ -11,8 +11,8 @@
 	<groupId>com.lama</groupId>
 	<artifactId>visitor-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>visitor-management-system </name>
-	<description>Visitor Management System </description>
+	<name>visitor-management-system</name>
+	<description>Visitor Management System</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -37,9 +37,9 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-cassandra</artifactId>
+			<version>3.1.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
