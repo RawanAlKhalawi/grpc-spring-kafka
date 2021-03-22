@@ -7,15 +7,13 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import com.google.protobuf.Timestamp;
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Table
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Setter
-@Getter
 public class Visitor {
 
     @PrimaryKey
@@ -31,7 +29,7 @@ public class Visitor {
     private VisitReason visitReason;
 
     @Column
-    private String visitTimeDate;
+    private Timestamp visitTimeDate;
 
     @Column
     private String mobileNumber;
@@ -71,11 +69,11 @@ public class Visitor {
         this.visitReason = visitReason;
     }
 
-    public String getVisitTimeDate() {
+    public Timestamp getVisitTimeDate() {
         return visitTimeDate;
     }
 
-    public void setVisitTimeDate(String visitTimeDate) {
+    public void setVisitTimeDate(Timestamp visitTimeDate) {
         this.visitTimeDate = visitTimeDate;
     }
 
