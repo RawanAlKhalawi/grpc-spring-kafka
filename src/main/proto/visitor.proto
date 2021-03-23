@@ -38,7 +38,7 @@ enum VisitResponse {
 message VisitorRequest {
   string first_name = 1;
   string last_name = 2;
-  string visit_time_date = 3;
+  google.protobuf.Timestamp visit_time_date = 3;
   string mobile_number = 4;
   VisitReason  visit_reason = 5;
   HostPosition host_position = 6;
