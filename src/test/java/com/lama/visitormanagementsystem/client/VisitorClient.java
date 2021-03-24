@@ -7,9 +7,15 @@ import com.lama.visitormanagementsystem.VisitorRequest;
 import com.lama.visitormanagementsystem.VisitorServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
+import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
+import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+
+import javax.net.ssl.SSLException;
+import java.io.File;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class VisitorClient {
@@ -19,11 +25,18 @@ public class VisitorClient {
     private VisitorServiceGrpc.VisitorServiceBlockingStub visitorServiceBlockingStub;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws SSLException {
 
-        this.channel = ManagedChannelBuilder.forAddress("localhost", 9090)
-                .usePlaintext()
+        File certFile = new File("/Users/lalosaimi/Desktop/visitor-management-system/src/main/resources/server.crt");
+
+        SslContext sslContext = GrpcSslContexts.forClient()
+                .trustManager(certFile)
                 .build();
+
+        this.channel = NettyChannelBuilder.forAddress("localhost", 9090)
+                .sslContext(sslContext)
+                .build();
+
         this.visitorServiceBlockingStub = VisitorServiceGrpc.newBlockingStub(channel);
     }
 

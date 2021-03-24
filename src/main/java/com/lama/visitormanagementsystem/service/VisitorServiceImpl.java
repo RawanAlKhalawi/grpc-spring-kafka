@@ -9,8 +9,10 @@ import com.lama.visitormanagementsystem.VisitorResponse;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 
 import java.sql.Timestamp;
+
 
 @GrpcService
 public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBase {
@@ -33,12 +35,11 @@ public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBas
             visitor.setMobileNumber(request.getMobileNumber());
             visitor.setHostName(request.getHostPosition());
 
-            visitorRepository.save(visitor);
-
             VisitorResponse response = VisitorResponse.newBuilder()
                     .setVisitResponse(VisitResponse.ACCEPTED)
                     .build();
 
+            visitorRepository.save(visitor);
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         }catch(Exception e) {
