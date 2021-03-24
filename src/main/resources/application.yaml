@@ -5,3 +5,9 @@ spring:
       contact-points: cassandra
       keyspace-name: visitorkeyspace
       entity-base-package: com.lama.visitormanagementsystem.model
+grpc:
+  server:
+    security:
+      enabled: true
+      certificate-chain: file:/Users/lalosaimi/Desktop/visitor-management-system/src/main/resources/server.crt
+      private-key: file:/Users/lalosaimi/Desktop/visitor-management-system/src/main/resources/server.key
