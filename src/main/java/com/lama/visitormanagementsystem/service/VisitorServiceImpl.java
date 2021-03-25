@@ -1,15 +1,14 @@
 package com.lama.visitormanagementsystem.service;
 
-import com.lama.visitormanagementsystem.*;
 import com.lama.visitormanagementsystem.Repository.VisitorRepository;
 import com.lama.visitormanagementsystem.VisitResponse;
-import com.lama.visitormanagementsystem.model.Visitor;
 import com.lama.visitormanagementsystem.VisitorRequest;
 import com.lama.visitormanagementsystem.VisitorResponse;
+import com.lama.visitormanagementsystem.VisitorServiceGrpc;
+import com.lama.visitormanagementsystem.model.Visitor;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 
 import java.sql.Timestamp;
 
