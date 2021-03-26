@@ -16,6 +16,20 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>Snapshots</name>
+			<url>${env.Nexus_REPO_URL}snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>central</id>
+			<name>Central</name>
+			<url>${env.Nexus_REPO_URL}central/</url>
+		</repository>
+	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
