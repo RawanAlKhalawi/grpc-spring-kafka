@@ -27,7 +27,7 @@ public class VisitorClient {
     @BeforeAll
     public void setup() throws SSLException {
 
-        File certFile = new File("/Users/lalosaimi/Desktop/visitor-management-system/src/main/resources/server.crt");
+        File certFile = new File("src/main/resources/server.crt");
 
         SslContext sslContext = GrpcSslContexts.forClient()
                 .trustManager(certFile)
