@@ -1,0 +1,73 @@
+image: maven 
+
+variables:
+   # MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
+   # MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+
+   # This will suppress any download for dependencies and plugins or upload messages which would clutter the console log.
+   # `showDateTime` will show the passed time in milliseconds. You need to specify `--batch-mode` to make this work.
+   MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=WARN -Dorg.slf4j.simpleLogger.showDateTime=true -Djava.awt.headless=true"
+   # As of Maven 3.3.0 instead of this you may define these options in `.mvn/maven.config` so the same config is used
+   # when running from the command line.
+   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
+   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+cache: 
+   paths:
+      - .m2/repository/
+      - target/
+
+stages:
+   - build
+   - test
+   - containerize
+   - deploy
+
+build:
+   tags: 
+      - build 
+   stage: build 
+   script:
+      - mv ./settings.xml ~/.m2/   
+      - chmod +x mvnw
+      - ./mvnw clean deploy -Dmaven.test.skip=true
+   artifacts: 
+      paths: 
+         - target/*.jar 
+
+test:
+   tags: 
+      - build  
+   stage: test 
+   script: 
+      - mv ./settings.xml ~/.m2/ 
+      - chmod +x mvnw
+      - ./mvnw test 
+
+docker:
+   tags: 
+      - build
+   stage: containerize
+   image: docker:19.03.12
+   services:
+      - docker:19.03.12-dind
+   variables:
+      DOCKER_DRIVER: overlay2
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_TLS_CERTDIR: ""
+      IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+   script:
+      - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+      - docker build -t $IMAGE_TAG .
+      - docker push $IMAGE_TAG
+
+
+deploy:
+  tags:
+     - cluster
+  stage: deploy
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl version
+    - kubectl cluster-info
+    # - kubectl apply -f deployment.yaml
