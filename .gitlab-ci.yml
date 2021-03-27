@@ -10,9 +10,6 @@ cache:
       - target/
 
 stages:
-   - build
-   - test
-   - containerize
    - deploy
 
 build:
