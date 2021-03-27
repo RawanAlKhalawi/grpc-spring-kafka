@@ -62,5 +62,6 @@ deploy:
   image: dtzar/helm-kubectl
   script:
     - kubectl version
-    - kubectl cluster-info
+    - kubectl get all
+   #  - kubectl cluster-info
     # - kubectl apply -f deployment.yaml
