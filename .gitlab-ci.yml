@@ -13,7 +13,7 @@ stages:
    - build
    - test
    - containerize
-   # - deploy
+   - deploy
 
 build:
    tags: 
@@ -55,12 +55,12 @@ docker:
       - docker push $IMAGE_TAG
 
 
-# deploy:
-#   tags:
-#      - cluster
-#   stage: deploy
-#   image: dtzar/helm-kubectl
-#   script:
-#     - kubectl version
-#     - kubectl cluster-info
+deploy:
+  tags:
+     - cluster
+  stage: deploy
+  image: dtzar/helm-kubectl
+  script:
+    - kubectl version
+    - kubectl cluster-info
     # - kubectl apply -f deployment.yaml
