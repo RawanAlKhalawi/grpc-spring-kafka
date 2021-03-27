@@ -22,7 +22,7 @@ build:
    script:
       - mv ./settings.xml ~/.m2/   
       - chmod +x mvnw
-      - ./mvnw clean deploy -Dmaven.test.skip=true
+      - ./mvnw clean install -Dmaven.test.skip=true
    artifacts: 
       paths: 
          - target/*.jar 
