@@ -1,30 +1,30 @@
 package com.lama.visitormanagementsystem.client;
 
 import com.google.protobuf.Timestamp;
-import com.lama.visitormanagementsystem.HostPosition;
-import com.lama.visitormanagementsystem.VisitReason;
-import com.lama.visitormanagementsystem.VisitorRequest;
-import com.lama.visitormanagementsystem.VisitorServiceGrpc;
+import com.lama.visitormanagementsystem.*;
 import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
 import io.grpc.netty.shaded.io.netty.handler.ssl.SslContext;
-import org.junit.jupiter.api.BeforeAll;
+import org.grpcmock.springboot.AutoConfigureGrpcMock;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import javax.net.ssl.SSLException;
 import java.io.File;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringJUnitConfig
+@SpringBootTest(classes = VisitorManagementSystemApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@AutoConfigureGrpcMock
 public class VisitorClient {
 
     private ManagedChannel channel;
 
     private VisitorServiceGrpc.VisitorServiceBlockingStub visitorServiceBlockingStub;
 
-    @BeforeAll
+    @BeforeEach
     public void setup() throws SSLException {
 
         File certFile = new File("src/main/resources/server.crt");
