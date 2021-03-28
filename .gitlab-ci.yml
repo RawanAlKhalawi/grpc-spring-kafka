@@ -64,4 +64,4 @@ deploy:
     - kubectl version
     - kubectl get all
    #  - kubectl cluster-info
-    - kubectl apply -f deployment.yaml
+    - kubectl apply -f deployment.yml
