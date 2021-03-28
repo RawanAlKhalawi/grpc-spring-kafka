@@ -2,6 +2,9 @@ package com.lama.visitormanagementsystem.client;
 
 import com.google.protobuf.Timestamp;
 import com.lama.visitormanagementsystem.*;
+import com.lama.visitormanagementsystem.HostPosition;
+import com.lama.visitormanagementsystem.VisitReason;
+import com.lama.visitormanagementsystem.VisitorRequest;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
