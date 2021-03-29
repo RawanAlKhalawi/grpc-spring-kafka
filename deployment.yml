@@ -32,3 +32,26 @@ spec:
   selector:
     app: cassandra-deployment
   type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vms-deployment
+  name: vms-deployment
+  namespace: gitlab-managed-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vms-deployment
+  template:
+    metadata:
+      labels:
+        app: vms-deployment
+    spec:
+      containers:
+      - name: $CI_REGISTRY
+        image: $CI_REGISTRY_IMAGE
+      imagePullSecrets:
+      - name: $CI_REGISTRY_PASSWORD
