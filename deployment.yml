@@ -55,3 +55,16 @@ spec:
         image: $CI_REGISTRY_IMAGE
       imagePullSecrets:
       - name: $CI_REGISTRY_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: vms-deployment
+  name: vms-service
+spec:
+  ports:
+    - port: 9090
+  selector:
+    app: vms-deployment
+  type: LoadBalancer
