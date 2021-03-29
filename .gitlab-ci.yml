@@ -62,6 +62,5 @@ deploy:
   image: dtzar/helm-kubectl
   script:
     - kubectl version
-    - kubectl get all
-   #  - kubectl cluster-info
     - kubectl apply -f deployment.yml
+    - kubectl get all -n gitlab-managed-apps
