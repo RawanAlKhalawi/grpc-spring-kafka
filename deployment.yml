@@ -51,10 +51,11 @@ spec:
         app: vms-deployment
     spec:
       containers:
-      - name: $CI_REGISTRY
-        image: $CI_REGISTRY_IMAGE
+      - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
+        name: visitor-management-system
+        imagePullPolicy: Always
       imagePullSecrets:
-      - name: $CI_REGISTRY_PASSWORD
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
