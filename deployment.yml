@@ -51,12 +51,11 @@ spec:
         app: vms-deployment
     spec:
       containers:
-      - image: registry.gitlab.com/lamoboos223/visitor-management-system
+      - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
         name: visitor-management-system
         imagePullPolicy: Always
       imagePullSecrets:
-      - name: docker-registry-configuration
-      restartPolicy: Always
+      - name: regcred
 ---
 apiVersion: v1
 kind: Service
