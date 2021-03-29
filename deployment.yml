@@ -4,7 +4,7 @@ metadata:
   labels:
     app: cassandra-deployment
   name: cassandra-deployment
-  namespace: default
+  namespace: gitlab-managed-apps
 spec:
   replicas: 1
   selector:
