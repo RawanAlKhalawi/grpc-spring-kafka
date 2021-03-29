@@ -55,7 +55,8 @@ spec:
         name: visitor-management-system
         imagePullPolicy: Always
       imagePullSecrets:
-      - name: regcred
+      - name: docker-registry-configuration
+      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
