@@ -14,7 +14,7 @@
 	<name>visitor-management-system</name>
 	<description>Visitor Management System</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 
 	<distributionManagement>
