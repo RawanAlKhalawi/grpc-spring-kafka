@@ -36,7 +36,7 @@ public class VisitorClient {
                 .trustManager(certFile)
                 .build();
 
-        this.channel = NettyChannelBuilder.forAddress("104.197.39.66", 9090)
+        this.channel = NettyChannelBuilder.forAddress("localhost", 9090)
                 .sslContext(sslContext)
                 .build();
 
