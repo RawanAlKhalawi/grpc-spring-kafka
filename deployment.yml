@@ -23,6 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: gitlab-managed-apps
   labels:
     app: cassandra-deployment
   name: cassandra-service
@@ -31,4 +32,42 @@ spec:
     - port: 9042
   selector:
     app: cassandra-deployment
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vms-deployment
+  name: vms-deployment
+  namespace: gitlab-managed-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vms-deployment
+  template:
+    metadata:
+      labels:
+        app: vms-deployment
+    spec:
+      containers:
+      - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
+        name: visitor-management-system
+        imagePullPolicy: Always
+      imagePullSecrets:
+      - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: gitlab-managed-apps
+  labels:
+    app: vms-deployment
+  name: vms-service
+spec:
+  ports:
+    - port: 9090
+  selector:
+    app: vms-deployment
   type: LoadBalancer
