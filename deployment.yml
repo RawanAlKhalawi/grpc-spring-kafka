@@ -53,7 +53,7 @@ spec:
     spec:
       containers:
       - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
-        name: visitor-management-system
+        name: vms-deployment
         imagePullPolicy: Always
       imagePullSecrets:
       - name: regcred
