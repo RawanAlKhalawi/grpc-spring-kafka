@@ -23,6 +23,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: gitlab-managed-apps
   labels:
     app: cassandra-deployment
   name: cassandra-service
@@ -60,6 +61,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: gitlab-managed-apps
   labels:
     app: vms-deployment
   name: vms-service
