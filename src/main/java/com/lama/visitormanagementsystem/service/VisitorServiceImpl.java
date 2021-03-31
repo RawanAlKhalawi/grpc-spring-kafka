@@ -1,6 +1,6 @@
 package com.lama.visitormanagementsystem.service;
 
-import com.lama.visitormanagementsystem.Repository.VisitorRepository;
+import com.lama.visitormanagementsystem.repository.VisitorRepository;
 import com.lama.visitormanagementsystem.VisitResponse;
 import com.lama.visitormanagementsystem.VisitorRequest;
 import com.lama.visitormanagementsystem.VisitorResponse;
