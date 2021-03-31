@@ -1,4 +1,4 @@
-package com.lama.visitormanagementsystem.Repository;
+package com.lama.visitormanagementsystem.repository;
 
 import com.lama.visitormanagementsystem.model.Visitor;
 import org.springframework.data.cassandra.repository.CassandraRepository;
