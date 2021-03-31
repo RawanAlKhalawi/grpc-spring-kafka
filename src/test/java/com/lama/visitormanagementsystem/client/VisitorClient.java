@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 import javax.net.ssl.SSLException;
 import java.io.File;
@@ -23,12 +25,12 @@ import java.io.File;
 @AutoConfigureGrpcMock
 public class VisitorClient {
 
-    private ManagedChannel channel;
 
     private VisitorServiceGrpc.VisitorServiceBlockingStub visitorServiceBlockingStub;
 
     @BeforeEach
     public void setup() throws SSLException {
+        ManagedChannel channel;
 
         File certFile = new File("src/main/resources/server.crt");
 
@@ -36,7 +38,7 @@ public class VisitorClient {
                 .trustManager(certFile)
                 .build();
 
-        this.channel = NettyChannelBuilder.forAddress("localhost", 9090)
+        channel = NettyChannelBuilder.forAddress("localhost", 9090)
                 .sslContext(sslContext)
                 .build();
 
@@ -54,7 +56,6 @@ public class VisitorClient {
                 .setMobileNumber("055555555")
                 .setVisitReason(VisitReason.JOB_INTERVIEW)
                 .setHostPosition(HostPosition.ADMIN).build();
-        this.visitorServiceBlockingStub.checkIn(visitorRequest);
-
+        assertThat(this.visitorServiceBlockingStub.checkIn(visitorRequest)).isEqualTo(1);
     }
 }
