@@ -10,15 +10,15 @@ spec:
   selector:
     matchLabels:
       app: cassandra-deployment
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 3000
-    fsGroup: 2000
   template:
     metadata:
       labels:
         app: cassandra-deployment
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 3000
+      fsGroup: 2000
     spec:
       containers:
         - image: cassandra:4.0-beta4
@@ -63,15 +63,15 @@ spec:
   selector:
     matchLabels:
       app: vms-deployment
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 1000
-    runAsGroup: 3000
-    fsGroup: 2000
   template:
     metadata:
       labels:
         app: vms-deployment
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 3000
+      fsGroup: 2000
     spec:
       containers:
       - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
