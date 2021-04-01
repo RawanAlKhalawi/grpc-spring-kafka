@@ -83,32 +83,32 @@ spec:
       fsGroup: 2000
     spec:
       containers:
-      - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
-        name: vms-deployment
-        imagePullPolicy: Always
-      imagePullSecrets:
-      - name: regcred
-      resources:
-        requests:
-          memory: "64Mi"
-          cpu: "250m"
-        limits:
-          memory: "128Mi"
-          cpu: "500m"
-        readinessProbe:
-          tcpSocket:
-            port: 9090
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          tcpSocket:
-            port: 9090
-          initialDelaySeconds: 15
-          periodSeconds: 20
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            add: ["NET_ADMIN", "SYS_TIME", "NET_RAW"]
+        - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
+          name: vms-deployment
+          imagePullPolicy: Always
+        imagePullSecrets:
+        - name: regcred
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          readinessProbe:
+            tcpSocket:
+              port: 9090
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 9090
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add: ["NET_ADMIN", "SYS_TIME", "NET_RAW"]
 ---
 apiVersion: v1
 kind: Service
