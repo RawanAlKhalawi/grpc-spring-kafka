@@ -11,6 +11,7 @@ spec:
     matchLabels:
       app: cassandra-deployment
   securityContext:
+    runAsNonRoot: true
     runAsUser: 1000
     runAsGroup: 3000
     fsGroup: 2000
@@ -62,6 +63,11 @@ spec:
   selector:
     matchLabels:
       app: vms-deployment
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
   template:
     metadata:
       labels:
