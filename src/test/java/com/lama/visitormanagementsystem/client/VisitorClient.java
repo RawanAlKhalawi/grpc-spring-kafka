@@ -5,6 +5,7 @@ import com.lama.visitormanagementsystem.*;
 import com.lama.visitormanagementsystem.HostPosition;
 import com.lama.visitormanagementsystem.VisitReason;
 import com.lama.visitormanagementsystem.VisitorRequest;
+import com.lama.visitormanagementsystem.VisitorResponse;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
@@ -56,6 +57,7 @@ public class VisitorClient {
                 .setMobileNumber("055555555")
                 .setVisitReason(VisitReason.JOB_INTERVIEW)
                 .setHostPosition(HostPosition.ADMIN).build();
-        assertThat(this.visitorServiceBlockingStub.checkIn(visitorRequest)).isEqualTo(1);
+                VisitorResponse visitorResponse = this.visitorServiceBlockingStub.checkIn(visitorRequest);
+        assertThat(visitorResponse.getVisitResponse().toString()).isEqualTo("ACCEPTED");
     }
 }
