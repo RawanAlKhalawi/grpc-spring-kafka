@@ -44,8 +44,7 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
-              drop:
-              - ALL
+              add: ["NET_ADMIN", "SYS_TIME", "NET_RAW"]
 ---
 apiVersion: v1
 kind: Service
@@ -109,8 +108,7 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
-            drop:
-            - ALL
+            add: ["NET_ADMIN", "SYS_TIME", "NET_RAW"]
 ---
 apiVersion: v1
 kind: Service
