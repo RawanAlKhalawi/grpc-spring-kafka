@@ -10,6 +10,10 @@ spec:
   selector:
     matchLabels:
       app: cassandra-deployment
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 3000
+    fsGroup: 2000
   template:
     metadata:
       labels:
@@ -24,11 +28,13 @@ spec:
               port: 9042
             initialDelaySeconds: 5
             periodSeconds: 10
-            livenessProbe:
-              tcpSocket:
-                port: 9042
-              initialDelaySeconds: 15
-              periodSeconds: 20
+          livenessProbe:
+            tcpSocket:
+              port: 9042
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
@@ -72,11 +78,13 @@ spec:
             port: 9090
           initialDelaySeconds: 5
           periodSeconds: 10
-          livenessProbe:
-            tcpSocket:
-              port: 9090
-            initialDelaySeconds: 15
-            periodSeconds: 20
+        livenessProbe:
+          tcpSocket:
+            port: 9090
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        securityContext:
+          allowPrivilegeEscalation: false
 ---
 apiVersion: v1
 kind: Service
