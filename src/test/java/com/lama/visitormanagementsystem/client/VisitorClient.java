@@ -1,11 +1,10 @@
 package com.lama.visitormanagementsystem.client;
 
 import com.google.protobuf.Timestamp;
-import com.lama.visitormanagementsystem.*;
-import com.lama.visitormanagementsystem.HostPosition;
 import com.lama.visitormanagementsystem.VisitReason;
+import com.lama.visitormanagementsystem.VisitorManagementSystemApplication;
 import com.lama.visitormanagementsystem.VisitorRequest;
-import com.lama.visitormanagementsystem.VisitorResponse;
+import com.lama.visitormanagementsystem.VisitorServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;
@@ -15,11 +14,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-import static org.assertj.core.api.Assertions.assertThat;
-
 
 import javax.net.ssl.SSLException;
 import java.io.File;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringJUnitConfig
 @SpringBootTest(classes = VisitorManagementSystemApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -56,8 +55,8 @@ public class VisitorClient {
                 .setVisitTimeDate(timestamp)
                 .setMobileNumber("055555555")
                 .setVisitReason(VisitReason.JOB_INTERVIEW)
-                .setHostPosition(HostPosition.ADMIN).build();
-                VisitorResponse visitorResponse = this.visitorServiceBlockingStub.checkIn(visitorRequest);
+                .setHostPosition(com.lama.visitormanagementsystem.HostPosition.ADMIN).build();
+                com.lama.visitormanagementsystem.VisitorResponse visitorResponse = this.visitorServiceBlockingStub.checkIn(visitorRequest);
         assertThat(visitorResponse.getVisitResponse().toString()).isEqualTo("ACCEPTED");
     }
 }

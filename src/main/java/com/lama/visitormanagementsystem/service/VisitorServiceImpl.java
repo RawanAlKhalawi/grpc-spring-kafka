@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBase {
 
     @Autowired
-    VisitorRepository visitorRepository;
+    private VisitorRepository visitorRepository;
 
     @Override
     public void checkIn(VisitorRequest request, StreamObserver<VisitorResponse> responseObserver) {
