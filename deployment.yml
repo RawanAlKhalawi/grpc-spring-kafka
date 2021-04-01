@@ -24,6 +24,11 @@ spec:
         - image: cassandra:4.0-beta4
           imagePullPolicy: Always
           name: cassandra
+          resources:
+            limits:
+              cpu: "1"
+            requests:
+              cpu: "0.5"
           readinessProbe:
             tcpSocket:
               port: 9042
@@ -79,6 +84,11 @@ spec:
         imagePullPolicy: Always
       imagePullSecrets:
       - name: regcred
+        resources:
+          limits:
+            cpu: "1"
+          requests:
+            cpu: "0.5"
         readinessProbe:
           tcpSocket:
             port: 9090
