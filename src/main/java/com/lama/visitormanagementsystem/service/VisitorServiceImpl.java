@@ -30,7 +30,7 @@ public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBas
             visitor.setFirstName(request.getFirstName());
             visitor.setLastName(request.getLastName());
             visitor.setVisitReason(request.getVisitReason());
-            visitor.setVisitTimeDate(timestamp);
+            visitor.setVisitTimeDate(timestamp.toLocalDateTime());
             visitor.setMobileNumber(request.getMobileNumber());
             visitor.setHostName(request.getHostPosition());
 

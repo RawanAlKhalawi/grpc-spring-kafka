@@ -6,10 +6,10 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table
+@Table(value = "visitor")
 public class Visitor {
 
     @PrimaryKey
@@ -25,7 +25,7 @@ public class Visitor {
     private VisitReason visitReason;
 
     @Column
-    private Timestamp visitTimeDate;
+    private LocalDateTime visitTimeDate;
 
     @Column
     private String mobileNumber;
@@ -33,7 +33,7 @@ public class Visitor {
     @Column
     private HostPosition hostName;
 
-    public Visitor(String firstName, String lastName, VisitReason visitReason, Timestamp visitTimeDate, String mobileNumber, HostPosition hostName) {
+    public Visitor(String firstName, String lastName, VisitReason visitReason, LocalDateTime visitTimeDate, String mobileNumber, HostPosition hostName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.visitReason = visitReason;
@@ -77,11 +77,11 @@ public class Visitor {
         this.visitReason = visitReason;
     }
 
-    public Timestamp getVisitTimeDate() {
+    public LocalDateTime getVisitTimeDate() {
         return visitTimeDate;
     }
 
-    public void setVisitTimeDate(Timestamp visitTimeDate) {
+    public void setVisitTimeDate(LocalDateTime visitTimeDate) {
         this.visitTimeDate = visitTimeDate;
     }
 
