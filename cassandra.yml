@@ -2,40 +2,38 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: appointmentsbooking-deployment
-  name: appointmentsbooking-deployment
+    app: cassandra-deployment
+  name: cassandra-deployment
   namespace: gitlab-managed-apps
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: appointmentsbooking-deployment
+      app: cassandra-deployment
   template:
     metadata:
       labels:
-        app: appointmentsbooking-deployment
+        app: cassandra-deployment
     spec:
       containers:
-        - name: appointmentsbooking-deployment
-          image: registry.gitlab.com/lamoboos223/appointments-booking:master
+        - image: cassandra:4.0-beta4
           imagePullPolicy: Always
-#        imagePullSecrets:
-#          - name: regcred
-#        resources:
-#          requests:
-#            memory: "64Mi"
-#            cpu: "250m"
-#          limits:
-#            memory: "128Mi"
-#            cpu: "500m"
+          name: cassandra
+#          resources:
+#            requests:
+#              memory: "64Mi"
+#              cpu: "250m"
+#            limits:
+#              memory: "128Mi"
+#              cpu: "500m"
 #          readinessProbe:
 #            tcpSocket:
-#              port: 9090
+#              port: 9042
 #            initialDelaySeconds: 5
 #            periodSeconds: 10
 #          livenessProbe:
 #            tcpSocket:
-#              port: 9090
+#              port: 9042
 #            initialDelaySeconds: 15
 #            periodSeconds: 20
           securityContext:
@@ -48,11 +46,11 @@ kind: Service
 metadata:
   namespace: gitlab-managed-apps
   labels:
-    app: appointmentsbooking-deployment
-  name: appointmentsbooking-service
+    app: cassandra-deployment
+  name: cassandra-service
 spec:
   ports:
-    - port: 9090
+    - port: 9042
   selector:
-    app: appointmentsbooking-deployment
+    app: cassandra-deployment
   type: LoadBalancer
