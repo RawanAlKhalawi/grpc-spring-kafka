@@ -18,6 +18,8 @@ spec:
       containers:
         - name: appointmentsbooking-deployment
           image: registry.gitlab.com/lamoboos223/appointments-booking:master
+          ports:
+            - containerPort: 9090
           imagePullPolicy: Always
 #        imagePullSecrets:
 #          - name: regcred
