@@ -83,7 +83,7 @@ spec:
       fsGroup: 2000
     spec:
       containers:
-        - image: registry.gitlab.com/lamoboos223/visitor-management-system:master
+        - image: registry.gitlab.com/lamoboos223/appointments-booking:master
           name: vms-deployment
           imagePullPolicy: Always
         imagePullSecrets:
