@@ -64,6 +64,7 @@ deploy:
   image: dtzar/helm-kubectl
   script:
     - kubectl version
+    - kubectl apply -f cassandra.yml
     - kubectl apply -f deployment.yml
     - kubectl get all -n gitlab-managed-apps
   only:
