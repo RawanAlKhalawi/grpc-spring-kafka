@@ -1,11 +1,11 @@
-package com.lama.visitormanagementsystem.service;
+package com.lama.appointmentsbooking.service;
 
-import com.lama.visitormanagementsystem.repository.VisitorRepository;
-import com.lama.visitormanagementsystem.VisitResponse;
-import com.lama.visitormanagementsystem.VisitorRequest;
-import com.lama.visitormanagementsystem.VisitorResponse;
-import com.lama.visitormanagementsystem.VisitorServiceGrpc;
-import com.lama.visitormanagementsystem.model.Visitor;
+import com.lama.appointmentsbooking.VisitResponse;
+import com.lama.appointmentsbooking.VisitorRequest;
+import com.lama.appointmentsbooking.VisitorResponse;
+import com.lama.appointmentsbooking.VisitorServiceGrpc;
+import com.lama.appointmentsbooking.model.Visitor;
+import com.lama.appointmentsbooking.repository.VisitorRepository;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBas
             visitorRepository.save(visitor);
             responseObserver.onNext(response);
             responseObserver.onCompleted();
-        }catch(Exception e) {
+        } catch (Exception e) {
             responseObserver.onError(new Exception(VisitResponse.REJECTED.toString()));
         }
     }
