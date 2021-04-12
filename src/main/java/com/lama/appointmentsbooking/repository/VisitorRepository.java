@@ -1,6 +1,6 @@
-package com.lama.visitormanagementsystem.repository;
+package com.lama.appointmentsbooking.repository;
 
-import com.lama.visitormanagementsystem.model.Visitor;
+import com.lama.appointmentsbooking.model.Visitor;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
 

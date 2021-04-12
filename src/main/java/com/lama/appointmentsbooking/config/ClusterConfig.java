@@ -1,4 +1,4 @@
-package com.lama.visitormanagementsystem.config;
+package com.lama.appointmentsbooking.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

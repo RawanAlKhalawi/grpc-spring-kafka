@@ -1,4 +1,4 @@
-package com.lama.visitormanagementsystem.config;
+package com.lama.appointmentsbooking.config;
 
 import com.datastax.driver.core.exceptions.NoHostAvailableException;
 import com.datastax.driver.core.exceptions.TransportException;

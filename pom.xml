@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lama</groupId>
-	<artifactId>visitor-management-system</artifactId>
+	<artifactId>appointments-booking</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>visitor-management-system</name>
 	<description>Visitor Management System</description>

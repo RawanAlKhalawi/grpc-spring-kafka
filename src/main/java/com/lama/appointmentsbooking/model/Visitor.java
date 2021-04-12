@@ -1,7 +1,7 @@
-package com.lama.visitormanagementsystem.model;
+package com.lama.appointmentsbooking.model;
 
-import com.lama.visitormanagementsystem.HostPosition;
-import com.lama.visitormanagementsystem.VisitReason;
+import com.lama.appointmentsbooking.HostPosition;
+import com.lama.appointmentsbooking.VisitReason;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;

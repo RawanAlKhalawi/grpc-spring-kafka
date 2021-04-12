@@ -1,10 +1,10 @@
-package com.lama.visitormanagementsystem.client;
+package com.lama.appointmentsbooking.client;
 
 import com.google.protobuf.Timestamp;
-import com.lama.visitormanagementsystem.VisitReason;
-import com.lama.visitormanagementsystem.VisitorManagementSystemApplication;
-import com.lama.visitormanagementsystem.VisitorRequest;
-import com.lama.visitormanagementsystem.VisitorServiceGrpc;
+import com.lama.appointmentsbooking.AppointmentsBookingApplication;
+import com.lama.appointmentsbooking.VisitReason;
+import com.lama.appointmentsbooking.VisitorRequest;
+import com.lama.appointmentsbooking.VisitorServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.grpcmock.springboot.AutoConfigureGrpcMock;
@@ -18,7 +18,7 @@ import javax.net.ssl.SSLException;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringJUnitConfig
-@SpringBootTest(classes = VisitorManagementSystemApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@SpringBootTest(classes = AppointmentsBookingApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureGrpcMock
 public class VisitorClient {
 
@@ -53,8 +53,8 @@ public class VisitorClient {
                 .setVisitTimeDate(timestamp)
                 .setMobileNumber("055555555")
                 .setVisitReason(VisitReason.JOB_INTERVIEW)
-                .setHostPosition(com.lama.visitormanagementsystem.HostPosition.ADMIN).build();
-                com.lama.visitormanagementsystem.VisitorResponse visitorResponse = this.visitorServiceBlockingStub.checkIn(visitorRequest);
+                .setHostPosition(com.lama.appointmentsbooking.HostPosition.ADMIN).build();
+        com.lama.appointmentsbooking.VisitorResponse visitorResponse = this.visitorServiceBlockingStub.checkIn(visitorRequest);
         assertThat(visitorResponse.getVisitResponse().toString()).isEqualTo("ACCEPTED");
     }
 }
