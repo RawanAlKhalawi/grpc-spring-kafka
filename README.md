@@ -28,3 +28,8 @@ Import cert to keystore
 ```shell script
 sudo keytool -importcert -keystore /usr/local/java/jdk1.8.0_60/jre/lib/security/cacerts -storepass changeit -file ~/Downloads/RHEL-cert/root.crt -alias "rhel-root"
 ```
+
+Cleanup my k8s cluster
+```shell script
+kubectl delete daemonsets,replicasets,services,deployments,pods,jobs,rc,statefulset --all
+```
