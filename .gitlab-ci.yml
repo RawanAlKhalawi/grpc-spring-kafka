@@ -63,6 +63,7 @@ deploy:
   stage: deploy
   image: dtzar/helm-kubectl
   script:
+    - echo $CONTACT_POINTS
     - kubectl apply -f cassandra.yml
     - kubectl apply -f deployment.yml
   only:
