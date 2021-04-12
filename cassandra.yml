@@ -53,4 +53,3 @@ spec:
     - port: 9042
   selector:
     app: cassandra-deployment
-  type: LoadBalancer
