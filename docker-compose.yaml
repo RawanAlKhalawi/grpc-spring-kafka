@@ -1,11 +1,11 @@
 version: '3.1'
 services:
-  app:
-    container_name: app
-    build: .
-    ports:
-      - "9090:9090"
-    restart: always
+#  app:
+#    container_name: app
+#    build: .
+#    ports:
+#      - "9090:9090"
+#    restart: always
   cassandra:
     image: cassandra
     container_name: cassandra
