@@ -1,45 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cassandra-deployment
+  name: cassandra-deployment
+  namespace: gitlab-managed-apps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cassandra-deployment
+  template:
+    metadata:
+      labels:
+        app: cassandra-deployment
+    spec:
+      containers:
+        - image: cassandra:4.0-beta4
+          imagePullPolicy: Always
+          name: cassandra
+          #          resources:
+          #            requests:
+          #              memory: "64Mi"
+          #              cpu: "250m"
+          #            limits:
+          #              memory: "128Mi"
+          #              cpu: "500m"
+          #          readinessProbe:
+          #            tcpSocket:
+          #              port: 9042
+          #            initialDelaySeconds: 5
+          #            periodSeconds: 10
+          #          livenessProbe:
+          #            tcpSocket:
+          #              port: 9042
+          #            initialDelaySeconds: 15
+          #            periodSeconds: 20
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add: ["NET_ADMIN", "SYS_TIME", "NET_RAW"]
+---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: gitlab-managed-apps
   labels:
-    app: cassandra
-  name: cassandra
+    app: cassandra-deployment
+  name: cassandra-service
 spec:
-  type: LoadBalancer
   ports:
     - port: 9042
   selector:
-    app: cassandra
----
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  namespace: gitlab-managed-apps
-  name: cassandra
-  labels:
-    app: cassandra
-spec:
-  serviceName: cassandra
-  replicas: 1
-  selector:
-    matchLabels:
-      app: cassandra
-  template:
-    metadata:
-      labels:
-        app: cassandra
-    spec:
-      containers:
-        - name: cassandra
-          image: cassandra
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 7000
-              name: intra-node
-            - containerPort: 7001
-              name: tls-intra-node
-            - containerPort: 7199
-              name: jmx
-            - containerPort: 9042
-              name: cql
+    app: cassandra-deployment
