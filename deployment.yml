@@ -22,10 +22,11 @@ spec:
             - containerPort: 9090
           env:
           - name: CONTACT_POINTS
-            valueFrom:
-              secretKeyRef:
-                name: appointmentsbooking-secret
-                key: CONTACT_POINTS
+            value: 172.17.0.3,172.25.0.2,127.0.0.1,10.84.0.87
+#            valueFrom:
+#              secretKeyRef:
+#                name: appointmentsbooking-secret
+#                key: CONTACT_POINTS
           imagePullPolicy: Always
 ---
 apiVersion: v1
