@@ -20,19 +20,13 @@ spec:
           image: registry.gitlab.com/lamoboos223/appointments-booking:master
           ports:
             - containerPort: 9090
-            env:
-            - name: CONTACT_POINTS
-              valueFrom:
-                configMapKeyRef:
-                  name: appointmentsbooking-secret
-                  key: CONTACT_POINTS
-
-
+          env:
+          - name: CONTACT_POINTS
+            valueFrom:
+              secretKeyRef:
+                name: appointmentsbooking-secret
+                key: CONTACT_POINTS
           imagePullPolicy: Always
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              add: ["NET_ADMIN", "SYS_TIME", "NET_RAW"]
 ---
 apiVersion: v1
 kind: Service
