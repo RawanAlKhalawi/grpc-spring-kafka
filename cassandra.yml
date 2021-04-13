@@ -34,12 +34,11 @@ spec:
           image: cassandra
           imagePullPolicy: Always
           ports:
-        ports:
-          - containerPort: 7000
-            name: intra-node
-          - containerPort: 7001
-            name: tls-intra-node
-          - containerPort: 7199
-            name: jmx
-          - containerPort: 9042
-            name: cql
+            - containerPort: 7000
+              name: intra-node
+            - containerPort: 7001
+              name: tls-intra-node
+            - containerPort: 7199
+              name: jmx
+            - containerPort: 9042
+              name: cql
