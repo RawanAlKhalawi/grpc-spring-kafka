@@ -33,3 +33,6 @@ spec:
         - name: cassandra
           image: cassandra
           imagePullPolicy: Always
+          ports:
+            - containerPort: 9042
+
