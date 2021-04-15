@@ -27,15 +27,15 @@ build:
       paths: 
          - target/*.jar 
 
-test:
-   tags: 
-      - build  
-   stage: test 
-   script: 
-      - mv ./settings.xml ~/.m2/
-      - chmod +x mvnw
-      - ./mvnw test 
-   allow_failure: true
+# test:
+#    tags: 
+#       - build  
+#    stage: test 
+#    script: 
+#       - mv ./settings.xml ~/.m2/
+#       - chmod +x mvnw
+#       - ./mvnw test 
+#    allow_failure: true
 
 docker:
    tags: 
