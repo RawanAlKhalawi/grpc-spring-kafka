@@ -1,7 +1,7 @@
 spring:
   data:
     cassandra:
-      # contact-points: 127.0.0.1
+      contact-points: host.docker.internal
       keyspace-name: visitorkeyspace
       schema-action: CREATE_IF_NOT_EXISTS
 #grpc:
