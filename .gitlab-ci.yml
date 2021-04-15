@@ -63,7 +63,8 @@ deploy:
   stage: deploy
   image: dtzar/helm-kubectl
   script:
-    - kubectl replace -f cassandra.yml
+    - kubectl delete -f cassandra.yml
+    - kubectl apply -f cassandra.yml
     - kubectl apply -f deployment.yml
   only:
      - master
