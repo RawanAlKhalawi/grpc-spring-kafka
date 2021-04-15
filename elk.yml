@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch-logging
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: elasticsearch-logging
+spec:
+  serviceName: elasticsearch-logging
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      k8s-app: elasticsearch-logging
+  template:
+    metadata:
+      labels:
+        k8s-app: elasticsearch-logging
+    spec:
+      containers:
+        - image: elasticsearch:6.8.4
+          name: elasticsearch-logging
+          ports:
+            - containerPort: 9200
+              name: db
+              protocol: TCP
+            - containerPort: 9300
+              name: transport
+              protocol: TCP
+          volumeMounts:
+            - name: elasticsearch-logging
+              mountPath: /data
+          env:
+            - name: "NAMESPACE"
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+      volumes:
+        - name: elasticsearch-logging
+          emptyDir: {}
+      initContainers:
+        - image: alpine:3.6
+          command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
+          name: elasticsearch-logging-init
+          securityContext:
+            privileged: true
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-logging
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: elasticsearch-logging
+spec:
+  ports:
+    - port: 9200
+      protocol: TCP
+      targetPort: db
+  selector:
+    k8s-app: elasticsearch-logging
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana-logging
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: kibana-logging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kibana-logging
+  template:
+    metadata:
+      labels:
+        k8s-app: kibana-logging
+    spec:
+      containers:
+        - name: kibana-logging
+          image: docker.elastic.co/kibana/kibana-oss:6.8.4
+          env:
+            - name: ELASTICSEARCH_URL
+              value: http://elasticsearch-logging:9200
+          ports:
+            - containerPort: 5601
+              name: ui
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-logging
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: kibana-logging
+    kubernetes.io/name: "Kibana"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5601
+      protocol: TCP
+      targetPort: ui
+  selector:
+    k8s-app: kibana-logging
