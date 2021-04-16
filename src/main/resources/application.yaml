@@ -1,7 +1,6 @@
 spring:
   data:
     cassandra:
-      port: 9042
       contact-points: host.docker.internal
       keyspace-name: visitorkeyspace
       schema-action: CREATE_IF_NOT_EXISTS
