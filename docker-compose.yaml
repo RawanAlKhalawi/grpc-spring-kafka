@@ -6,49 +6,64 @@ services:
 #    ports:
 #      - "9090:9090"
 #    restart: always
-#  cassandra:
-#    image: cassandra
-#    container_name: cassandra
+  cassandra:
+    image: cassandra
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+      - "9160:9160"
+      - "7199:7199"
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - 2181:2181
+    container_name: zookeeper
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPIC: "appointments_booking_topic:1:0"
+#  es01:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+#    container_name: es01
+#    environment:
+#      - node.name=es01
+#      - cluster.name=es-docker-cluster
+#      - cluster.initial_master_nodes=es01
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - data01:/usr/share/elasticsearch/data
 #    ports:
-#      - "9042:9042"
-#      - "9160:9160"
-#      - "7199:7199"
-  es01:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.12.0
-    container_name: es01
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - cluster.initial_master_nodes=es01
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - data01:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
-    networks:
-      - elastic
-  kib01:
-    depends_on:
-      - es01
-    image: docker.elastic.co/kibana/kibana:7.12.0
-    container_name: kib01
-    ports:
-      - 5601:5601
-    environment:
-      ELASTICSEARCH_URL: http://es01:9200
-      ELASTICSEARCH_HOSTS: '["http://es01:9200"]'
-    networks:
-      - elastic
-
-volumes:
-  data01:
-    driver: local
-
-networks:
-  elastic:
-    driver: bridge
+#      - 9200:9200
+#    networks:
+#      - elastic
+#  kib01:
+#    depends_on:
+#      - es01
+#    image: docker.elastic.co/kibana/kibana:7.12.0
+#    container_name: kib01
+#    ports:
+#      - 5601:5601
+#    environment:
+#      ELASTICSEARCH_URL: http://es01:9200
+#      ELASTICSEARCH_HOSTS: '["http://es01:9200"]'
+#    networks:
+#      - elastic
+#
+#volumes:
+#  data01:
+#    driver: local
+#
+#networks:
+#  elastic:
+#    driver: bridge
