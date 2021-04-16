@@ -4,8 +4,8 @@ import com.lama.appointmentsbooking.VisitResponse;
 import com.lama.appointmentsbooking.VisitorRequest;
 import com.lama.appointmentsbooking.VisitorResponse;
 import com.lama.appointmentsbooking.VisitorServiceGrpc;
+import com.lama.appointmentsbooking.kafka.KafkaProducer;
 import com.lama.appointmentsbooking.model.Visitor;
-import com.lama.appointmentsbooking.repository.VisitorRepository;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +14,10 @@ import java.sql.Timestamp;
 
 
 @GrpcService
-public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBase {
+public class VisitorService extends VisitorServiceGrpc.VisitorServiceImplBase {
 
     @Autowired
-    private VisitorRepository visitorRepository;
+    KafkaProducer kafkaProducer;
 
     @Override
     public void checkIn(VisitorRequest request, StreamObserver<VisitorResponse> responseObserver) {
@@ -38,7 +38,8 @@ public class VisitorServiceImpl extends VisitorServiceGrpc.VisitorServiceImplBas
                     .setVisitResponse(VisitResponse.ACCEPTED)
                     .build();
 
-            visitorRepository.save(visitor);
+            kafkaProducer.sendMessage(visitor);
+
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (Exception e) {
