@@ -5,7 +5,7 @@ metadata:
   name: kafka-configmap
 data:
   KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
-  KAFKA_CREATE_TOPICS: "appointments_booking_topic:1:0"
+  KAFKA_CREATE_TOPICS: "appointments_booking_topic:1:1"
   KAFKA_ADVERTISED_HOST_NAME: kafka-service
 ---
 kind: Deployment
