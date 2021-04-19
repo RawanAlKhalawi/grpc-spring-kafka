@@ -5,7 +5,7 @@ metadata:
 data:
   KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
   KAFKA_CREATE_TOPICS: "appointments_booking_topic:1:0"
-  KAFKA_ADVERTISED_HOST_NAME: 34.123.237.58
+  KAFKA_ADVERTISED_HOST_NAME: kafka-service
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -66,7 +66,7 @@ spec:
   selector:
     app: kafka
     id: "0"
-  type: LoadBalancer
+  # type: LoadBalancer
 ---
 kind: Deployment
 apiVersion: apps/v1
@@ -113,4 +113,4 @@ spec:
             - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
               value: "true"
             - name: KAFKA_ADVERTISED_LISTENERS
-              value: PLAINTEXT://34.123.237.58:9092
+              value: PLAINTEXT://kafka-service:9092
