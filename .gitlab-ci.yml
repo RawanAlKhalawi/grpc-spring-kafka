@@ -64,6 +64,7 @@ deploy:
   image: dtzar/helm-kubectl
   script:
     - kubectl apply -f cassandra.yml
+    - kubectl apply -f kafka.yml
     - kubectl apply -f deployment.yml
   only:
      - master
