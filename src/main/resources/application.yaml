@@ -14,7 +14,7 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   data:
     cassandra:
-      contact-points: 172.17.0.3,172.25.0.2,127.0.0.1,10.84.0.87,192.168.65.2,172.17.0.2
+      contact-points: cassandra-service
       keyspace-name: visitorkeyspace
       schema-action: CREATE_IF_NOT_EXISTS
 #grpc:
