@@ -12,7 +12,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   namespace: gitlab-managed-apps
-  name: zookeeper-deploy
+  name: zookeeper
 spec:
   replicas: 1
   selector:
@@ -116,5 +116,5 @@ spec:
                   key: KAFKA_CREATE_TOPICS
             - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
               value: "true"
-            - name: KAFKA_ADVERTISED_LISTENERS
-              value: PLAINTEXT://kafka-service:9092
+            # - name: KAFKA_ADVERTISED_LISTENERS
+            #   value: PLAINTEXT://kafka-service:9092
