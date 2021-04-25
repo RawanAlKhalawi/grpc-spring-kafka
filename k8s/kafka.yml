@@ -65,6 +65,6 @@ spec:
                   key: KAFKA_CREATE_TOPICS
             - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
               value: "true"
-#            - name: KAFKA_ADVERTISED_LISTENERS
-#              value: PLAINTEXT://localhost:9092
+            - name: KAFKA_ADVERTISED_LISTENERS
+              value: PLAINTEXT://localhost:9092
 
