@@ -14,8 +14,7 @@ public class KafkaProducer {
     KafkaTemplate<String, Visitor> kafkaTemplate;
 
     public void sendMessage(Visitor visitor){
-
-        kafkaTemplate.send(TOPIC, visitor);
+        kafkaTemplate.send(TOPIC,"testkey", visitor);
     }
 
 }

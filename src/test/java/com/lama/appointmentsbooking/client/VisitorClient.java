@@ -17,8 +17,8 @@ import javax.net.ssl.SSLException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+//@SpringBootTest(classes = AppointmentsBookingApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @SpringJUnitConfig
-@SpringBootTest(classes = AppointmentsBookingApplication.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @AutoConfigureGrpcMock
 public class VisitorClient {
 

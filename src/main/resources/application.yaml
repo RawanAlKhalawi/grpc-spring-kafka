@@ -3,18 +3,18 @@ spring:
     consumer:
       properties:
         spring.json.trusted.packages: "com.lama.appointmentsbooking.model"
-      bootstarp-servers: kafka-service:9092
+      bootstarp-servers: 127.0.0.1:9092
       group-id: "appointments_booking_group_id"
       auto-offset-reset: latest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
     producer:
-      bootstarp-servers: kafka-service:9092
+      bootstarp-servers: 127.0.0.1:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   data:
     cassandra:
-      contact-points: cassandra
+      contact-points: 127.0.0.1
       keyspace-name: visitorkeyspace
       schema-action: CREATE_IF_NOT_EXISTS
 #grpc:
