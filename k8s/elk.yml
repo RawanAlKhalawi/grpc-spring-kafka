@@ -129,7 +129,15 @@ spec:
           image: docker.elastic.co/apm/apm-server:6.8.4
           env:
             - name: "output.elasticsearch.hosts"
-              value: "localhost:9200"
+              value: "[elasticsearch:9200]"
+            - name: "apm-server.rum.enabled"
+              value: "true"
+            - name: "setup.kibana.host"
+              value: "kibana:5601"
+            - name: "apm-server.kibana.enabled"
+              value: "true"
+            - name: "apm-server.kibana.host"
+              value: "kibana:5601"
           ports:
             - containerPort: 8200
               name: ui
