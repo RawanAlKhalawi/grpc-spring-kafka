@@ -107,13 +107,46 @@ spec:
   selector:
     k8s-app: kibana-logging
 ---
-apiVersion: apm.k8s.elastic.co/v1
-kind: ApmServer
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: apm-server-quickstart
+  name: apm-server
   namespace: gitlab-managed-apps
+  labels:
+    k8s-app: apm-server
 spec:
-  version: 7.12.1
-  count: 1
-  elasticsearchRef:
-    name: elasticsearch
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: apm-server
+  template:
+    metadata:
+      labels:
+        k8s-app: apm-server
+    spec:
+      containers:
+        - name: apm-server
+          image: docker.elastic.co/apm/apm-server:6.8.4
+          env:
+            - name: "output.elasticsearch.hosts"
+              value: "localhost:9200"
+          ports:
+            - containerPort: 8200
+              name: ui
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apm-server
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: apm-server
+    kubernetes.io/name: "apmserver"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8200
+  selector:
+    k8s-app: apm-server
