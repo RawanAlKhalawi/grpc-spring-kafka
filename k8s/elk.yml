@@ -54,6 +54,7 @@ metadata:
   labels:
     k8s-app: elasticsearch-logging
 spec:
+  type: LoadBalancer
   ports:
     - port: 9200
       protocol: TCP
@@ -105,3 +106,14 @@ spec:
       targetPort: ui
   selector:
     k8s-app: kibana-logging
+---
+apiVersion: apm.k8s.elastic.co/v1
+kind: ApmServer
+metadata:
+  name: apm-server-quickstart
+  namespace: gitlab-managed-apps
+spec:
+  version: 7.12.1
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch
