@@ -128,21 +128,11 @@ spec:
         - name: apm-server
           image: docker.elastic.co/apm/apm-server:6.8.4
           env:
-            - name: "output.elasticsearch.hosts"
-              value: "[elasticsearch:9200]"
-            - name: "apm-server.rum.enabled"
-              value: "true"
-            - name: "setup.kibana.host"
-              value: "kibana:5601"
-            - name: "apm-server.kibana.enabled"
-              value: "true"
-            - name: "apm-server.kibana.host"
-              value: "kibana:5601"
+            - name: OUTPUT_ELASTICSEARCH_HOSTS
+              value: http://elasticsearch-logging:9200
           ports:
             - containerPort: 8200
-              name: ui
-              protocol: TCP
-
+              name: apm-port
 ---
 apiVersion: v1
 kind: Service
@@ -151,7 +141,6 @@ metadata:
   namespace: gitlab-managed-apps
   labels:
     k8s-app: apm-server
-    kubernetes.io/name: "apmserver"
 spec:
   type: LoadBalancer
   ports:
