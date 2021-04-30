@@ -54,6 +54,7 @@ metadata:
   labels:
     k8s-app: elasticsearch-logging
 spec:
+  type: LoadBalancer
   ports:
     - port: 9200
       protocol: TCP
@@ -105,3 +106,44 @@ spec:
       targetPort: ui
   selector:
     k8s-app: kibana-logging
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apm-server
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: apm-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: apm-server
+  template:
+    metadata:
+      labels:
+        k8s-app: apm-server
+    spec:
+      containers:
+        - name: apm-server
+          image: docker.elastic.co/apm/apm-server:6.8.4
+          env:
+            - name: OUTPUT_ELASTICSEARCH_HOSTS
+              value: http://elasticsearch-logging:9200
+          ports:
+            - containerPort: 8200
+              name: apm-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apm-server
+  namespace: gitlab-managed-apps
+  labels:
+    k8s-app: apm-server
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 8200
+  selector:
+    k8s-app: apm-server
