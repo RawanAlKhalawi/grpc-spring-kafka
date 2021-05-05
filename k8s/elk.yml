@@ -1,26 +1,26 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: elasticsearch-logging
+  name: elasticsearch
   namespace: gitlab-managed-apps
   labels:
-    k8s-app: elasticsearch-logging
+    k8s-app: elasticsearch
 spec:
-  serviceName: elasticsearch-logging
+  serviceName: elasticsearch
   replicas: 1
   updateStrategy:
     type: RollingUpdate
   selector:
     matchLabels:
-      k8s-app: elasticsearch-logging
+      k8s-app: elasticsearch
   template:
     metadata:
       labels:
-        k8s-app: elasticsearch-logging
+        k8s-app: elasticsearch
     spec:
       containers:
         - image: elasticsearch:6.8.4
-          name: elasticsearch-logging
+          name: elasticsearch
           ports:
             - containerPort: 9200
               name: db
@@ -29,7 +29,7 @@ spec:
               name: transport
               protocol: TCP
           volumeMounts:
-            - name: elasticsearch-logging
+            - name: elasticsearch
               mountPath: /data
           env:
             - name: "NAMESPACE"
@@ -37,22 +37,22 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
       volumes:
-        - name: elasticsearch-logging
+        - name: elasticsearch
           emptyDir: {}
       initContainers:
         - image: alpine:3.6
           command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
-          name: elasticsearch-logging-init
+          name: elasticsearch-init
           securityContext:
             privileged: true
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: elasticsearch-logging
+  name: elasticsearch
   namespace: gitlab-managed-apps
   labels:
-    k8s-app: elasticsearch-logging
+    k8s-app: elasticsearch
 spec:
   type: LoadBalancer
   ports:
@@ -60,7 +60,7 @@ spec:
       protocol: TCP
       targetPort: db
   selector:
-    k8s-app: elasticsearch-logging
+    k8s-app: elasticsearch
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -84,7 +84,7 @@ spec:
           image: docker.elastic.co/kibana/kibana-oss:6.8.4
           env:
             - name: ELASTICSEARCH_URL
-              value: http://elasticsearch-logging:9200
+              value: http://elasticsearch:9200
           ports:
             - containerPort: 5601
               name: ui
@@ -129,7 +129,7 @@ spec:
           image: docker.elastic.co/apm/apm-server:6.8.4
           env:
             - name: OUTPUT_ELASTICSEARCH_HOSTS
-              value: http://elasticsearch-logging:9200
+              value: http://localhost:9200
           ports:
             - containerPort: 8200
               name: apm-port
