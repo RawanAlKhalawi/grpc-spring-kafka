@@ -10,11 +10,11 @@
 #kubectl apply -f grpc.yml
 
 #setting up APM Agent
-java -javaagent:../lib/elastic-apm-agent-1.23.0.jar \
-     -Delastic.apm.service_name=appointments-booking \
-     -Delastic.apm.server_url=http://localhost:8200 \
-     -Delastic.apm.application_packages=com.lama.appointmentsbooking \
-     -jar ../target/appointments-booking-0.0.1-SNAPSHOT.jar
+#java -javaagent:../lib/elastic-apm-agent-1.23.0.jar \
+#     -Delastic.apm.service_name=appointments-booking \
+#     -Delastic.apm.server_url=http://localhost:8200 \
+#     -Delastic.apm.application_packages=com.lama.appointmentsbooking \
+#     -jar ../target/appointments-booking-0.0.1-SNAPSHOT.jar
 
 # Stop Docker and K8s
 #docker-compose down
