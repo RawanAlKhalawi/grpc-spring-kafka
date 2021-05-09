@@ -63,8 +63,6 @@ deploy:
   stage: deploy
   image: dtzar/helm-kubectl
   script:
-    - kubectl apply -f cassandra.yml
-    - kubectl apply -f kafka.yml
-    - kubectl apply -f grpc.yml
+    - k8s/deploy.sh
   only:
      - master
