@@ -18,6 +18,9 @@ spec:
       containers:
         - name: appointmentsbooking-deployment
           image: registry.gitlab.com/lamoboos223/appointments-booking:master
+          envFrom:
+            - configMapRef:
+                name: app-env
           ports:
             - containerPort: 9090
           imagePullPolicy: Always
