@@ -32,7 +32,6 @@ test:
       - build  
    stage: test 
    script: 
-      - echo $APP_CONTACT_POINTS
       - mv ./settings.xml ~/.m2/
       - chmod +x mvnw
       - ./mvnw test 
